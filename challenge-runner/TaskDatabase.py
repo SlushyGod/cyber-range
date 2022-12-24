@@ -37,7 +37,7 @@ class TaskRepository():
     task.delete()
 
   def _update_tasks(self):
-    tasks = get_tasks()
+    tasks = self.get_tasks()
     timestamp = int(time.time())
 
     # Make the time configurable, or based on the env variable of the image

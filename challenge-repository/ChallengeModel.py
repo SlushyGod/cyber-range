@@ -1,5 +1,5 @@
-import pynamodb.models import Model
-import pynamodb.attributes import UnicodeAttribute, NumberAttribute
+from pynamodb.models import Model
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute
 
 # What should be configurable and what shouldn't be?
 # Should this model be specific to just the platforms challenge,
