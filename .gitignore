@@ -4,11 +4,11 @@ __pycache__
 
 # Front end
 # Reference for React projects https://github.com/facebook/react/blob/main/.gitignore
-amplify
-node_modules
+amplify/
+node_modules/
 aws-exports.js
 build/
-.next
+.next/
 
 # Text editors
 .vscode
