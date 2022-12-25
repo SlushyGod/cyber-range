@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-const Home = ({signOut, user}) => {
+const Home = () => {
   return (
     <>
       <h1>Welcome to Next.js!</h1>
