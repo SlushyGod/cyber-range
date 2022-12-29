@@ -1,5 +1,5 @@
 from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute, NumberAttribute
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute, ListAttribute
 
 # What should be configurable and what shouldn't be?
 # Should this model be specific to just the platforms challenge,
@@ -19,6 +19,7 @@ class ChallengeModel(Model):
   category = UnicodeAttribute(null=False)
   timeout = NumberAttribute(null=False)
   flag = UnicodeAttribute(null=False)
+  static = ListAttribute(null=True)
   type = UnicodeAttribute(null=False)
 
   ecs_task = UnicodeAttribute(null=False)
