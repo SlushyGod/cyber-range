@@ -6,6 +6,7 @@ challenge = {
   'category': 'binary',
   'timeout': '1800',
   'flag': 'flag{treefall}',
+  'static': ['flag.tar.bz2'],
   'type': 'standard',
   'storage': ''
 }

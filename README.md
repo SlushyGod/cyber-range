@@ -12,3 +12,4 @@ Develop as a library, but can break things down into a microservice later.
 
 TODO:
 - [ ] Have a docker-compose file so that the project can exist on the current machine
+- [ ] ChallengeRepo has Challenge which is a baseclass for creating things like AWSChallenge which is the interface for interacting with challenges, ChallengeRepository can be a base class for interacting with the database, so that way you can add challenges in a speicific way

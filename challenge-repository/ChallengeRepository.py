@@ -9,11 +9,13 @@ class Challenge():
     self.timeout = None
     self.flag = None
     self.type = None
+    self.static = None
     self.storage = None # Used for additional information that might not be captured normally
 
     if (challenge_model):
       self.from_model(challenge_model)
 
+  # Should probable stick with serialize, deserialize?
   def from_model(self, challenge_model):
     """
         Loads a challenge model into the challenge object, will throw errors if not all attributes are defined
@@ -23,6 +25,7 @@ class Challenge():
     self.category = challenge_model.category
     self.timeout = challenge_model.timeout
     self.flag = challenge_model.flag
+    self.static = challenge_model.static
     self.type = challenge_model.type
 
   def to_model(self):
@@ -35,6 +38,7 @@ class Challenge():
       category=self.category,
       timeout=self.timeout,
       flag=self.flag,
+      static=self.static,
       type=self.type,
       ecs_task=self.ecs_info
     )
