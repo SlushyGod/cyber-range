@@ -15,13 +15,13 @@ class ChallengeModel(Model):
     region = 'us-east-2'
 
   group = UnicodeAttribute(hash_key=True)
-  challenge = UnicodeAttribute(range_key=True)
+  name = UnicodeAttribute(range_key=True)
   category = UnicodeAttribute(null=False)
   timeout = NumberAttribute(null=False)
   flag = UnicodeAttribute(null=False)
   static = ListAttribute(null=True)
   type = UnicodeAttribute(null=False)
 
-  ecs_task = UnicodeAttribute(null=False)
-  ecs_cluster = UnicodeAttribute(null=False)
+  ecs_task = UnicodeAttribute(null=True)
+  ecs_cluster = UnicodeAttribute(null=True)
   ecs_data = UnicodeAttribute(null=True)

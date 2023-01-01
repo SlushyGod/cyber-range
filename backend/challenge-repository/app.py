@@ -3,7 +3,7 @@ from ChallengeModel import ChallengeModel
 
 challenge = ChallengeModel(
   group='hackasat 2022',
-  challenge='basic file',
+  name='basic file',
   category='warmup',
   timeout=1800,
   flag='flag{flag}',
@@ -12,6 +12,18 @@ challenge = ChallengeModel(
   ecs_task='hackasat-qualifier-2021-treefall',
   ecs_cluster='arn:aws:ecs:us-east-2:166853359275:cluster/cluster-hackasat-qualifier-2021'
 )
+
+'''
+challenge = ChallengeModel(
+  group='hackasat 2021',
+  name='treefall',
+  category='warmup',
+  timeout=1800,
+  flag='flag{flag}',
+  static=['flag.tar.bz2'],
+  type='standard'
+)
+'''
 
 #vars(challenge)
 challenge = Challenge(challenge)

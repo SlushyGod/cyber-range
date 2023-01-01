@@ -3,6 +3,8 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 
+import { ChallengeCard } from '../components/ChallengeCard.tsx';
+
 const getChallenges = () => {
   const apiName = 'cyber-range-api';
   const path = '/challenges';
@@ -13,23 +15,25 @@ const getChallenges = () => {
 
 
 const Home = () => {
+  const [challenges, setChallenges] = useState([]);
 
   useEffect(() => {
     getChallenges()
       .then(data => {
-        console.log(data);
+        setChallenges(data);
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
 
+  let challengeCards = challenges.map(challenge =>
+    <ChallengeCard challenge={challenge} id={challenge.name}/>
+  );
+
   return (
     <>
-      <h1>Welcome to Next.js!</h1>
-      <Link href="/about">
-        About
-      </Link>
+      { challengeCards }
     </>
   );
 }
