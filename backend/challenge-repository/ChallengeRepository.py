@@ -1,4 +1,5 @@
 from ChallengeModel import ChallengeModel
+from pynamodb.models import DoesNotExist
 
 # Need to refactor this, use inheritance, this doesn't really make any sense
 # Challenge object, keeps the challenges standardized
@@ -67,6 +68,8 @@ class Challenge():
     Treat this as a class that you can just pull all of the challenges, as well as put all of the challenges
 
     Should be a singleton?
+
+    Make get_challenges have the ability to filter similar to mongodb, everything else should either use a challenge ID, or a challenge object since they only perform an action on one challenge at a time
     """
 class ChallengeRepository():
   def get_challenges(challenge_filter=None):
@@ -79,11 +82,17 @@ class ChallengeRepository():
     new_challenge = challenge.to_model()
     new_challenge.save()
 
+  # Make this a value to search on using dicts? similar to mongodb
   def get_challenge(self, challenge_id):
     ids = challenge_id.split('#')
-    challenge = ChallengeModel.get(ids[0], ids[1])
-    return challenge
 
+    try:
+      challenge = ChallengeModel.get(ids[0], ids[1])
+      return Challenge(challenge)
+    except DoesNotExist:
+      return Challenge()
+
+  # Can either use a filter, or a challenge object?
   def delete_challenge(self, challenge_id):
     challenge = self.get_challenge(challenge_id)
     challenge.delete()

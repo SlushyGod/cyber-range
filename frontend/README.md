@@ -1,13 +1,28 @@
 # Setup
 
-Initialize nodejs project
-
+## NodeJS Installation
+Install NVM (Node Version Manager) on your system, might have to change this command to use the latest version
 ```
-npm init -y
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+```
+
+Update bashrc changes
+```
+source ~/.bashrc
+```
+
+Install the latest stable version of NodeJS
+```
+nvm install --lts
+```
+
+## Initialize Project
+Install node dependencies
+```
+npm install
 ```
 
 Initialize the amplify project by pulling it down
-
 ```
 amplify pull --appId <value> --envName <value>
 ```
