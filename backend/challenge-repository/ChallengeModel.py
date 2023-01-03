@@ -17,11 +17,16 @@ class ChallengeModel(Model):
   group = UnicodeAttribute(hash_key=True)
   name = UnicodeAttribute(range_key=True)
   category = UnicodeAttribute(null=False)
-  timeout = NumberAttribute(null=False)
+  downloads = ListAttribute(null=True)
   flag = UnicodeAttribute(null=False)
-  static = ListAttribute(null=True)
+  points = NumberAttribute(null=False)
+  timeout = NumberAttribute(null=False)
   type = UnicodeAttribute(null=False)
 
   ecs_task = UnicodeAttribute(null=True)
   ecs_cluster = UnicodeAttribute(null=True)
   ecs_data = UnicodeAttribute(null=True)
+  ecs_subnets = ListAttribute(null=True)
+  ecs_security_groups = ListAttribute(null=True)
+
+

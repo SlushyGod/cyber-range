@@ -8,10 +8,11 @@ class Challenge():
     self.group = None
     self.name = None
     self.category = None
-    self.timeout = None
+    self.downloads = None
     self.flag = None
+    self.points = None
+    self.timeout = None
     self.type = None
-    self.static = None
     self.storage = None # Used for additional information that might not be captured normally
 
     if (challenge_model):
@@ -27,11 +28,14 @@ class Challenge():
     self.category = challenge_model.category
     self.timeout = challenge_model.timeout
     self.flag = challenge_model.flag
-    self.static = challenge_model.static
+    self.downloads = challenge_model.downloads
+    self.points = challenge_model.points
     self.type = challenge_model.type
 
     self.ecs_task = challenge_model.ecs_task
     self.ecs_cluster = challenge_model.ecs_cluster
+    self.ecs_subnets = challenge_model.ecs_subnets
+    self.ecs_security_groups = challenge_model.ecs_security_groups
 
   def to_model(self):
     """
@@ -43,10 +47,13 @@ class Challenge():
       category=self.category,
       timeout=self.timeout,
       flag=self.flag,
-      static=self.static,
+      downloads=self.downloads,
+      points=self.points,
       type=self.type,
       ecs_task=self.ecs_task,
-      ecs_cluster=self.ecs_cluster
+      ecs_cluster=self.ecs_cluster,
+      ecs_subnets=self.ecs_subnets,
+      ecs_security_groups = self.ecs_security_groups
     )
 
     return challenge
@@ -59,7 +66,8 @@ class Challenge():
     challenge['timeout'] = self.timeout
     challenge['flag'] = self.flag
     challenge['type'] = self.type
-    challenge['static'] = self.static
+    challenge['downloads'] = self.downloads
+    challenge['points'] = self.points
     challenge['storage'] = self.storage
 
     return challenge

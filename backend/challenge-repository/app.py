@@ -7,10 +7,13 @@ challenge = ChallengeModel(
   category='warmup',
   timeout=1800,
   flag='flag{flag}',
-  static=['flag.tar.bz2'],
+  points=100,
+  downloads=['flag.tar.bz2'],
   type='standard',
   ecs_task='hackasat-qualifier-2021-treefall',
-  ecs_cluster='arn:aws:ecs:us-east-2:166853359275:cluster/cluster-hackasat-qualifier-2021'
+  ecs_cluster='arn:aws:ecs:us-east-2:166853359275:cluster/cluster-hackasat-qualifier-2021',
+  ecs_subnets=['subnet-87495aef'],
+  ecs_security_groups=['sg-dfaa11bc']
 )
 
 '''

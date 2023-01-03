@@ -22,6 +22,7 @@ class TaskRepository():
     self._update_tasks()
 
   def get_tasks(self):
+    self._update_tasks()
     return RunningTaskModel.query(str(self.user_id))
 
   def add_task(self, task_data):
@@ -36,11 +37,14 @@ class TaskRepository():
   def del_task(self, task):
     task.delete()
 
+  def _get_all_tasks(self):
+    return RunningTaskModel.query(str(self.user_id))
+
   def _update_tasks(self):
-    tasks = self.get_tasks()
+    tasks = self._get_all_tasks()
     timestamp = int(time.time())
 
     # Make the time configurable, or based on the env variable of the image
     for task in tasks:
       if (timestamp - task.start_timestamp > 1800):
-        del_task(task)
+        self.del_task(task)
