@@ -51,7 +51,6 @@ class TaskOrchestrator():
     # Add the ID of the running task
     arn = response["tasks"][0]['taskArn']
 
-    self._task_repository.add_task(response)
 
     waiter = client.get_waiter('tasks_running')
     waiter.wait(cluster=challenge.ecs_cluster, tasks=[arn])
@@ -64,5 +63,7 @@ class TaskOrchestrator():
         eni_id = detail['value']
 
     eni = boto3.resource('ec2').NetworkInterface(eni_id)
+    self._task_repository.add_task(response, challenge_id, eni.association_attribute['PublicIp'])
+
     return eni.association_attribute['PublicIp']
 

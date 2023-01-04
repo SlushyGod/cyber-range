@@ -1,18 +1,38 @@
 from TaskOrchestrator import TaskOrchestrator
 from TaskDatabase import TaskRepository
 import json
+import jwt
+
+def get_auth_token(event):
+  auth_header = event['Authorization']
+  token = auth_header.split(' ')[1]
+
+  return jwt.decode(token, options={"verify_signature": False})
 
 def lambda_handler(event, context):
   route_key = event['routeKey']
   [method, route] = route_key.split(' ')
+  auth_token = get_auth_token(event)
+  user_id = auth_token.get('preferred_username', None)
 
+  if user_id == None:
+    return 404
 
   if method == 'GET':
-    repository = TaskRepository(1)
-    return repository.get_tasks()
+    repository = TaskRepository(user_id)
+    tasks = repository.get_tasks()
+
+    challenge_ids = []
+    for task in tasks:
+      challenge_ids.append({
+        'id': task.challenge_id,
+        'connection': task.connection_info
+      })
+
+    return challenge_ids
   
   elif method == 'POST':
-    orchestrator = TaskOrchestrator(1)
+    orchestrator = TaskOrchestrator(user_id)
     orchestrator.clear_tasks()
 
     body = json.loads(event['body'])

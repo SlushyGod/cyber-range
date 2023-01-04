@@ -12,6 +12,9 @@ class RunningTaskModel(Model):
  
   user_id = UnicodeAttribute(hash_key=True)
   task_arn = UnicodeAttribute(range_key=True)
+
+  challenge_id = UnicodeAttribute(null=False)
+  connection_info = UnicodeAttribute(null=False)
   task_cluster = UnicodeAttribute(null=False)
   start_timestamp = NumberAttribute(default=int(time.time()))
 
@@ -25,11 +28,13 @@ class TaskRepository():
     self._update_tasks()
     return RunningTaskModel.query(str(self.user_id))
 
-  def add_task(self, task_data):
+  def add_task(self, task_data, challenge_id, conn):
     for task in task_data['tasks']:
       new_task = RunningTaskModel(
         user_id=str(self.user_id),
         task_arn=str(task['containers'][0]['taskArn']),
+        connection_info=conn,
+        challenge_id=challenge_id,
         task_cluster=str(task['clusterArn'])
       )
       new_task.save() 
