@@ -10,16 +10,16 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 
-import { checkFlag } from '../api/HttpRequests';
+import { checkFlag, startChallenge, getTasks } from '../api/HttpRequests';
 
 interface Challenge {
 	category: string;
+  downloads: string[];
   name: string;
   ecs_cluster: string;
   ecs_task: string;
   flag: string;
   group: string;
-  static: string[];
   timeout: number;
   type: string;
 };
@@ -44,6 +44,16 @@ const ChallengeCard = (challenge: Challenge) => {
 
   const handleFlagChange = (e) => {
     setFlag(e.target.value);
+    getTasks().then(resp => console.log(resp)).catch(err => console.log(err));
+  }
+
+  const handleStartChallenge = () => {
+    startChallenge(challenge.challenge.group, challenge.challenge.name)
+      .then(resp => {
+        alert(resp);
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   return (
@@ -51,11 +61,11 @@ const ChallengeCard = (challenge: Challenge) => {
       <CardHeader
         title={challenge.challenge.name}
       />
-        <Button size="small">Launch</Button>
+        <Button size="small" onClick={handleStartChallenge}>Launch</Button>
       <CardContent>
         <Typography variant="body2">
           {/*Put this in the backend code, backend should send the full url down*/}
-          <a href="https://trey-cyber-range.s3.us-east-2.amazonaws.com/{challenge.challenge.static[0]}" target="_blank">{challenge.challenge.static[0]}</a>
+          <a href="https://trey-cyber-range.s3.us-east-2.amazonaws.com/{challenge.challenge.static[0]}" target="_blank">{challenge.challenge.downloads[0]}</a>
         </Typography>
       </CardContent>
 

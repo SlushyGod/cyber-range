@@ -10,10 +10,8 @@ def get_auth_token(event):
   return jwt.decode(token, options={"verify_signature": False})
 
 def lambda_handler(event, context):
-  route_key = event['routeKey']
-  [method, route] = route_key.split(' ')
-  auth_token = get_auth_token(event)
-  user_id = auth_token.get('preferred_username', None)
+  method = event['requestContext']['http']['method']
+  user_id = event['requestContext']['authorizer']['jwt']['claims']['preferred_username']
 
   if user_id == None:
     return 404

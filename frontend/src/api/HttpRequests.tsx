@@ -13,6 +13,7 @@ const getChallenges = () => {
   return API.get(apiName, path, myInit);
 };
 
+
 const checkFlag = (flag: string, group: string, name: string) => {
   const apiName = 'cyber-range-api';
   const path = '/challenges/flag';
@@ -25,6 +26,27 @@ const checkFlag = (flag: string, group: string, name: string) => {
   };
 
   return API.post(apiName, path, req);
+};
+
+const getTasks = () => {
+  const apiName = 'cyber-range-api';
+  const path = '/task';
+  const req = { };
+
+  return API.get(apiName, path, req);
+};
+
+const startChallenge = (group: string, name: string) => {
+  const apiName = 'cyber-range-api';
+  const path = '/task';
+  const req = {
+    body: {
+      group: group,
+      name: name
+    }
+  };
+
+  return API.post(apiName, path, req);
 }
 
-export {getChallenges, checkFlag};
+export {getChallenges, checkFlag, startChallenge, getTasks};
