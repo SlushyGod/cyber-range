@@ -36,7 +36,7 @@ const getTasks = () => {
   return API.get(apiName, path, req);
 };
 
-const startChallenge = (group: string, name: string) => {
+const startTask = (group: string, name: string) => {
   const apiName = 'cyber-range-api';
   const path = '/task';
   const req = {
@@ -49,4 +49,4 @@ const startChallenge = (group: string, name: string) => {
   return API.post(apiName, path, req);
 }
 
-export {getChallenges, checkFlag, startChallenge, getTasks};
+export {getChallenges, checkFlag, startTask, getTasks};

@@ -3,7 +3,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 
-import { ChallengeCard } from '../components/ChallengeCard.tsx';
+import { ChallengeCard } from '../components/challenge/ChallengeCard.tsx';
 
 const getChallenges = () => {
   const apiName = 'cyber-range-api';
