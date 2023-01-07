@@ -10,12 +10,12 @@ class Challenge {
   task: Task;
 
   static fromJSON(data) {
-    return new Challenge(
-      data.category,
-      data.downloads,
-      data.name,
-      data.group
-    )
+    return new Challenge({
+      category: data.category,
+      downloads: data.downloads,
+      name: data.name,
+      group: data.group
+    })
   }
 
   constructor({...args}) {
@@ -36,8 +36,12 @@ class Challenge {
   }
 
   async startTask() {
-    this.task = await Task().start(this.group + '#' + this.name);
-    return this.task;
+    try{
+      await this.task.start();
+      return this.task;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   hasTask() {

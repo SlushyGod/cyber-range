@@ -1,10 +1,13 @@
+import { startTask } from '../api/HttpRequests';
+
 class Task {
   challengeId: string;
   connection: string;
   timeout = 0;
 
-  constructor(challengeId: string, {...args}) {
+  constructor(challengeId: string, ...args) {
     this.challengeId = challengeId;
+    if (args == undefined) return;
     if (args['connection'] != undefined) this.connection = args.connection; 
     if (args['timeout'] != undefined) this.timeout = args.timeout; 
   }
@@ -20,7 +23,7 @@ class Task {
     try {
       let taskInfo = startTask(this.challengeId);
       this.connection = taskInfo.connection;
-      this.timeout = taskInfo.timeout;
+      this.timeout = taskInfo.timeout || (30 * 60 * 1000);
     } catch (error) {
       console.log(error);
     }
@@ -41,12 +44,12 @@ class Task {
 
   isRunning() {
     let currentTime = Math.floor(Date.now() / 1000);
-    return (currentTime < timeout);
+    return (currentTime < this.timeout);
   }
 
   getRemainingTime() {
     let currentTime = Math.floor(Date.now() / 1000);
-    return timeout - currentTime;
+    return this.timeout - currentTime;
   }
 }
 

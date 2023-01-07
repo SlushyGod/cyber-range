@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import { startTask, getTasks } from '../../api/HttpRequests';
 import FlagSubmissionField from './FlagSubmissionField';
 import ChallengeDownloadsDisplay from './ChallengeDownloadsDisplay';
+import TaskControlBar from './TaskControlBar';
 
 interface Challenge {
 	category: string;
@@ -33,7 +34,6 @@ const ChallengeCard = ({challenge}: Challenge) => {
         title={challenge.name}
       />
       <TaskControlBar challenge={challenge} />
-        <Button size="small" onClick={challenge.startTask()}>Launch</Button>
       <CardContent>
         <ChallengeDownloadsDisplay downloads={challenge.downloads} />
       </CardContent>

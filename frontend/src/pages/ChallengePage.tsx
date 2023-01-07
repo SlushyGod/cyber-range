@@ -1,7 +1,9 @@
 import * as React from 'react';
 import ChallengeCard from '../components/challenge/ChallengeCard.tsx';
 import { getChallenges, getTasks } from '../api/HttpRequests'; 
+import Challenge from '../classes/Challenge';
 import Task from '../classes/Task';
+
 import ChallengeGroup from '../components/challenge/ChallengeGroup';
 
 const ChallengePage = () => {
@@ -10,8 +12,11 @@ const ChallengePage = () => {
 
   const loadChallenges = async () => {
     try {
-      let curChallenges = await getChallenges();
-      setChallenges(curChallenges);
+      let challengesJSON = await getChallenges();
+      let tmpChallenges = challengesJSON.map(challengeJSON => {
+        return Challenge.fromJSON(challengeJSON);
+      });
+      setChallenges(tmpChallenges);
     } catch (error) { 
       console.log(error);
     } 
@@ -29,19 +34,21 @@ const ChallengePage = () => {
     }
   }
 
+  const syncChallengeTasks = () => {
+
+  }
+
   React.useEffect(() => {
     loadChallenges();
     loadTasks();
+    syncChallengeTasks();
   }, []);
 
-  let challengeGroups = {};
-  challenges.map(challenge => {
-    if (challengeGroups[challenge.group] == undefined) {
-      challengeGroups[challenge.group] = [challenge];
-    } else {
-      challengeGroups[challenge.group].push(challenge);
-    }
-  });
+  let challengeGroups = challenges.reduce((acc, cur) => {
+    acc[cur.group] = acc[cur.group] || [];
+    acc[cur.group].push(cur);
+    return acc;
+  }, {});
 
   let challengeGroupElem = [];
   for (let [key, val] of Object.entries(challengeGroups)) {
