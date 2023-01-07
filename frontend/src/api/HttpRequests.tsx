@@ -37,14 +37,11 @@ const getTasks = () => {
 };
 
 const startTask = (challengeId: string) => {
-  let [group, name] = challengeId.split('#');
-
   const apiName = 'cyber-range-api';
   const path = '/task';
   const req = {
     body: {
-      group: group,
-      name: name
+      challengeId: challengeId
     }
   };
 
