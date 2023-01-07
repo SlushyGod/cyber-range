@@ -7,6 +7,7 @@ class Challenge():
   def __init__(self, challenge_model=None):
     self.group = None
     self.name = None
+    self.id = None
     self.category = None
     self.downloads = None
     self.flag = None
@@ -25,6 +26,7 @@ class Challenge():
         """
     self.group = challenge_model.group
     self.name = challenge_model.name
+    self.id = Challenge_model.challenge_id
     self.category = challenge_model.category
     self.timeout = challenge_model.timeout
     self.flag = challenge_model.flag
@@ -44,6 +46,7 @@ class Challenge():
     challenge = ChallengeModel(
       group=self.group,
       name=self.name,
+      challenge_id=self.id,
       category=self.category,
       timeout=self.timeout,
       flag=self.flag,
@@ -62,6 +65,7 @@ class Challenge():
     challenge = dict()
     challenge['group'] = self.group
     challenge['name'] = self.name
+    challenge['id'] = self.id
     challenge['category'] = self.category
     challenge['timeout'] = self.timeout
     challenge['flag'] = self.flag

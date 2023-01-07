@@ -1,13 +1,6 @@
 from TaskOrchestrator import TaskOrchestrator
 from TaskDatabase import TaskRepository
 import json
-import jwt
-
-def get_auth_token(event):
-  auth_header = event['Authorization']
-  token = auth_header.split(' ')[1]
-
-  return jwt.decode(token, options={"verify_signature": False})
 
 def lambda_handler(event, context):
   method = event['requestContext']['http']['method']
@@ -20,27 +13,27 @@ def lambda_handler(event, context):
     repository = TaskRepository(user_id)
     tasks = repository.get_tasks()
 
-    challenge_ids = []
+    filtered_tasks = []
     for task in tasks:
-      challenge_ids.append({
-        'id': task.challenge_id,
-        'connection': task.connection_info
+      filtered_tasks.append({
+        'challengeId': task.challenge_id,
+        'connection': task.connection_info,
+        'timeout': task.stop_timestamp
       })
 
-    return challenge_ids
+    return filtered_tasks
   
   elif method == 'POST':
     orchestrator = TaskOrchestrator(user_id)
     orchestrator.clear_tasks()
 
     body = json.loads(event['body'])
-    group = body.get('group', None)
-    name = body.get('name', None)
+    challengeId = body.get('challengeId', None)
 
-    if group == None or name == None:
+    if challengeId == None:
       return 404
 
-    task = orchestrator.run_task(group + '#' + name)
+    task = orchestrator.run_task(challengeId)
 
   return task
 

@@ -8,6 +8,9 @@ client = boto3.client('ecs')
 # Maybe call it TaskRunner?
 # When classes start getting names like 'helper' and 'manager', its because the purpose has not been
 #   well defined
+
+# TODO: have a way to apply a filter for attributes you want in a task, what should be returned should
+#   just be a task object
 class TaskOrchestrator():
   def __init__(self, user_id):
     self._task_repository = TaskRepository(user_id)
@@ -65,5 +68,10 @@ class TaskOrchestrator():
     eni = boto3.resource('ec2').NetworkInterface(eni_id)
     self._task_repository.add_task(response, challenge_id, eni.association_attribute['PublicIp'])
 
-    return eni.association_attribute['PublicIp']
+    task = {
+      'challengeId': challenge_id,
+      'connection': eni.association_attribute['PublicIp'],
+      'timeout': int(time.time()) + 1800
+    }
+    return task
 

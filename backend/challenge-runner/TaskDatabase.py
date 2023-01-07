@@ -17,7 +17,7 @@ class RunningTaskModel(Model):
   connection_info = UnicodeAttribute(null=False)
   task_cluster = UnicodeAttribute(null=False)
   start_timestamp = NumberAttribute(default=int(time.time()))
-
+  stop_timestamp = NumberAttribute(default=int(time.time()) + 1800)
 
 class TaskRepository():
   def __init__(self, user_id):
@@ -28,6 +28,7 @@ class TaskRepository():
     self._update_tasks()
     return RunningTaskModel.query(str(self.user_id))
 
+  # TODO: change to use the challegnes timestamp instead of 30min
   def add_task(self, task_data, challenge_id, conn):
     for task in task_data['tasks']:
       new_task = RunningTaskModel(
