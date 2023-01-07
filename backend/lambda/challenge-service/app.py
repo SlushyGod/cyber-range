@@ -5,11 +5,16 @@ def lambda_handler(event, context):
 
   filtered_challenges = []
   for challenge in challenges:
-    filtered_challenge = dict()
-    filtered_challenge['id'] = challenge.id
-    filtered_challenge['name'] = challenge.name
-    filtered_challenge['group'] = challenge.group
-    filtered_challenge['category'] = challenge.category
-    filtered_challenge['downloads'] = challenge.downloads
+    filtered_challenges.append({
+      'id': challenge['id'],
+      'name': challenge['name'],
+      'group': challenge['group'],
+      'category': challenge['category'],
+      'downloads': challenge['downloads']
+    })
 
   return filtered_challenges
+
+if __name__ == '__main__':
+  challenges = lambda_handler('','')
+  print(challenges)

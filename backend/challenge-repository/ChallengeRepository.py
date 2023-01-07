@@ -26,7 +26,7 @@ class Challenge():
         """
     self.group = challenge_model.group
     self.name = challenge_model.name
-    self.id = Challenge_model.challenge_id
+    self.id = challenge_model.challenge_id
     self.category = challenge_model.category
     self.timeout = challenge_model.timeout
     self.flag = challenge_model.flag

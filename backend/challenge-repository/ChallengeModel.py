@@ -17,7 +17,7 @@ class ChallengeModel(Model):
   group = UnicodeAttribute(hash_key=True)
   name = UnicodeAttribute(range_key=True)
   category = UnicodeAttribute(null=False)
-  challeneg_id = UnicodeAttribute(null=False)
+  challenge_id = UnicodeAttribute(null=False)
   downloads = ListAttribute(null=True)
   flag = UnicodeAttribute(null=False)
   points = NumberAttribute(null=False)
