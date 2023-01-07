@@ -22,55 +22,30 @@ interface Challenge {
   type: string;
 };
 
-const ChallengeCard = (challenge: Challenge) => {
-  const [task, setTask] = React.useState([]);
-
-  React.useEffect(() => {
-    getTasks()
-      .then(data => {
-        console.log(data);
-        setTask(data);
-      }).catch(err => {
-        console.log(err);
-      });
-  }, []);
-
+const ChallengeCard = ({challenge}: Challenge) => {
   // TaskControlBar.tsx ?
   // TaskLauncherButton.tsx ?
   // TaskStatusBox.tsx ?
 
-  const handleStartChallenge = () => {
-    startTask(challenge.challenge.group, challenge.challenge.name)
-      .then(resp => {
-        setTask([...task, resp]);
-      }).catch(err => {
-        console.log(err);
-      });
-  }
-
-  let tasks = task.map(t => <div id={t.id}>{t.connection}</div>);
-
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader
-        title={challenge.challenge.name}
+        title={challenge.name}
       />
-      
-      {tasks}
-        <Button size="small" onClick={handleStartChallenge}>Launch</Button>
+      <TaskControlBar challenge={challenge} />
+        <Button size="small" onClick={challenge.startTask()}>Launch</Button>
       <CardContent>
-        <ChallengeDownloadsDisplay downloads={challenge.challenge.downloads} />
+        <ChallengeDownloadsDisplay downloads={challenge.downloads} />
       </CardContent>
 
       <CardActions>
         <FlagSubmissionField
-          group={challenge.challenge.group}
-          name={challenge.challenge.name}
+          challenge={challenge}
         />
       </CardActions>
     </Card>
   );
 };
 
-export { ChallengeCard };
+export default ChallengeCard;
 
