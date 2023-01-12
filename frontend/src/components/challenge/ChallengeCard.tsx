@@ -10,37 +10,22 @@ import { startTask, getTasks } from '../../api/HttpRequests';
 import FlagSubmissionField from './FlagSubmissionField';
 import ChallengeDownloadsDisplay from './ChallengeDownloadsDisplay';
 import TaskControlBar from './TaskControlBar';
-
-interface Challenge {
-	category: string;
-  downloads: string[];
-  name: string;
-  ecs_cluster: string;
-  ecs_task: string;
-  flag: string;
-  group: string;
-  timeout: number;
-  type: string;
-};
+import Challenge from '../../types/Challenge';
 
 const ChallengeCard = ({challenge}: Challenge) => {
-  // TaskControlBar.tsx ?
-  // TaskLauncherButton.tsx ?
-  // TaskStatusBox.tsx ?
-
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader
         title={challenge.name}
       />
-      <TaskControlBar challenge={challenge} />
+      <TaskControlBar challengeId={challenge.id} task={challenge.task} />
       <CardContent>
         <ChallengeDownloadsDisplay downloads={challenge.downloads} />
       </CardContent>
 
       <CardActions>
         <FlagSubmissionField
-          challenge={challenge}
+          challengeId={challenge.id}
         />
       </CardActions>
     </Card>

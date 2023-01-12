@@ -3,6 +3,7 @@ import { checkFlag } from '../api/HttpRequests';
 
 // Think I should just add task into challenge
 class Challenge {
+  id: string;
   category: string;
   downloads: string[];
   name: string;
@@ -11,6 +12,7 @@ class Challenge {
 
   static fromJSON(data) {
     return new Challenge({
+      id: data.id,
       category: data.category,
       downloads: data.downloads,
       name: data.name,
@@ -19,6 +21,7 @@ class Challenge {
   }
 
   constructor({...args}) {
+    this.id = args.id;
     this.category = args.category;
     this.downloads = args.downloads;
     this.name = args.name;
@@ -26,7 +29,11 @@ class Challenge {
     this.task = new Task(this.group + '#' + this.name);
   }
 
-  async isFlagCorrect(flag) {
+  addTask(task: Task) {
+    this.task = task;
+  }
+
+  async isFlagCorrect(flag: string) {
     try {
       let flagCorrect = await checkFlag(flag, this.group, this.name);
       return (flagCorrect == 1) ? true : false;

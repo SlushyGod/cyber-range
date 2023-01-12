@@ -6,15 +6,11 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { checkFlag } from '../../api/HttpRequests.tsx';
 
-// Should probable create challenge and task objects to store the data and perform actions and whatnot
-// Can even do, challenge.checkFlag(), challenge.createTask()
-// Is there a best practice for loading in tree files? should they be relative to current file
-//    or relative to the root project?
-const FlagSubmissionField = (group: string, name: string) => {
+const FlagSubmissionField = (challengeId: string) => {
   const [flag, setFlag] = React.useState('');
 
   const handleCheckFlag = () => {
-    checkFlag(flag, group, name)
+    checkFlag(flag, challengeId)
       .then(resp => {
         if (resp == 1) alert('success');
         else alert('failed');

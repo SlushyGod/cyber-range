@@ -1,12 +1,29 @@
+import * as React from 'react';
 import { startTask } from '../api/HttpRequests';
+
+
+// Should public fields be used for state? private shouldnt?
+//   or should every field be a state?
+
+// Use state hook, then have a getter for the state values
+
+//https://medium.com/swlh/decoupling-logic-from-react-components-f6035646c275
+
+function Task() {
+  const [challengeId, setChallengeId] = useState('');
+  
+  return state?
+}
+
+Task.Val()
 
 class Task {
   challengeId: string;
   connection: string;
   timeout = 0;
 
-  constructor(challengeId: string, ...args) {
-    this.challengeId = challengeId;
+  constructor(args) {
+    this.challengeId = args.challengeId;
     if (args == undefined) return;
     if (args['connection'] != undefined) this.connection = args.connection; 
     if (args['timeout'] != undefined) this.timeout = args.timeout; 

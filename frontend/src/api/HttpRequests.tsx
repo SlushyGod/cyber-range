@@ -14,7 +14,8 @@ const getChallenges = () => {
 };
 
 
-const checkFlag = (flag: string, group: string, name: string) => {
+const checkFlag = (flag: string, challengeId: string) => {
+  let [group, name] = challengeId.split('#');
   const apiName = 'cyber-range-api';
   const path = '/challenges/flag';
   const req = {
